@@ -1,0 +1,386 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>B-905 Home Design</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Mukta:wght@400;500;700&display=swap">
+<style>
+/* Layout: a live 3D walkthrough on top, then a quiet reference sheet (palette, rooms, carpenter notes, budget) */
+:root{
+  --bg:#f6f2ea; --surface:#fffdf8; --ink:#1d1a2b; --muted:#625c70; --line:#e2dacb;
+  --indigo:#1f2f6b; --teak:#7a4a24; --brass:#b88a3a; --kumkum:#8c1d14;
+  --viewer:#121528; --chip:#ffffffd9; --chip-ink:#1d1a2b;
+  --display:"Rozha One", "Tiro Devanagari Hindi", Georgia, serif;
+  --body:"Mukta", "Noto Sans", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#13131c; --surface:#1c1c28; --ink:#efe9de; --muted:#a9a2b6; --line:#2e2d3d;
+  --indigo:#9fb0ee; --teak:#d29a66; --brass:#d8ac5c; --kumkum:#e0776c;
+  --viewer:#0b0c17; --chip:#1c1c28e6; --chip-ink:#efe9de; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13131c; --surface:#1c1c28; --ink:#efe9de; --muted:#a9a2b6; --line:#2e2d3d;
+  --indigo:#9fb0ee; --teak:#d29a66; --brass:#d8ac5c; --kumkum:#e0776c;
+  --viewer:#0b0c17; --chip:#1c1c28e6; --chip-ink:#efe9de; color-scheme:dark}
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:var(--body);font-size:16px;line-height:1.6}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.wrap{padding-block:28px 18px;display:grid;gap:4px}
+.eyebrow{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--teak);font-weight:500}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(34px,6vw,56px);line-height:1.05;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:6px 0 0;max-width:62ch}
+h2{font-family:var(--display);font-weight:400;font-size:28px;margin:0 0 6px;text-wrap:balance}
+section.wrap{padding-block:32px;border-top:1px solid var(--line)}
+section p.sub{color:var(--muted);margin:0 0 18px;max-width:64ch}
+
+/* viewer */
+.stage{position:relative;background:var(--viewer);border-radius:14px;overflow:hidden;height:min(70vh,620px);min-height:380px;touch-action:none;user-select:none;-webkit-user-select:none}
+.stage canvas{display:block;width:100%;height:100%}
+.topbar{position:absolute;left:10px;right:10px;top:10px;display:flex;gap:8px;align-items:flex-start;justify-content:space-between;pointer-events:none}
+.where{background:var(--chip);color:var(--chip-ink);padding:6px 12px;border-radius:999px;font-size:14px;font-weight:500;pointer-events:none}
+.modes{display:flex;background:var(--chip);border-radius:999px;padding:3px;pointer-events:auto}
+.modes button{border:0;background:transparent;color:var(--chip-ink);font:500 14px var(--body);padding:6px 12px;border-radius:999px;cursor:pointer}
+.modes button[aria-pressed="true"]{background:var(--indigo);color:#fff}
+:root[data-theme="dark"] .modes button[aria-pressed="true"]{color:#13131c}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .modes button[aria-pressed="true"]{color:#13131c}}
+.joy{position:absolute;left:16px;bottom:16px;width:110px;height:110px;border-radius:50%;background:#ffffff22;border:1.5px solid #ffffff55;touch-action:none}
+.joy .knob{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:#ffffffcc}
+.hint{position:absolute;right:12px;bottom:12px;max-width:52%;text-align:right;color:#ffffffcc;font-size:13px;line-height:1.35;pointer-events:none}
+.rooms{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.rooms button{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 14px var(--body);padding:7px 14px;border-radius:999px;cursor:pointer}
+.rooms button:hover{border-color:var(--teak)}
+.rooms button[aria-pressed="true"]{background:var(--teak);border-color:var(--teak);color:#fff}
+button:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.loading{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:15px}
+
+/* palette */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.sw{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.sw i{display:block;height:64px}
+.sw div{padding:8px 10px;font-size:14px;line-height:1.35}
+.sw b{display:block;font-weight:500}
+.sw span{color:var(--muted);font-size:13px}
+
+/* rooms list */
+.roomgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px 32px}
+.room h3{font-size:18px;margin:0 0 2px;font-weight:700}
+.room .dim{font-size:13px;color:var(--teak);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.room ul{margin:6px 0 0;padding-left:18px;color:var(--ink)}
+.room li{margin:2px 0}
+
+.notes{display:grid;gap:10px;max-width:72ch;padding-left:0;list-style:none;margin:0}
+.notes li{padding-left:26px;position:relative}
+.notes li::before{content:"";position:absolute;left:4px;top:.6em;width:9px;height:9px;transform:rotate(45deg);border:1.5px solid var(--kumkum)}
+
+.tablebox{overflow-x:auto}
+table{border-collapse:collapse;width:100%;max-width:640px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+td:last-child,th:last-child{text-align:right;white-space:nowrap}
+tfoot td{font-weight:700;border-bottom:0}
+footer.wrap{padding-block:24px 40px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+@media (max-width:560px){.hint{display:none}.stage{height:62vh}}
+</style>
+
+<header class="wrap">
+  <div class="eyebrow">Flat B-905 · 2.5 BHK · Gayatri Classic</div>
+  <h1>Our new home</h1>
+  <p class="lede">A concept design in South Indian style with a modern finish: teak, brass, kolam art and warm colours. Walk through it below, or jump to any room.</p>
+</header>
+
+<div class="wrap">
+  <div class="stage" id="stage">
+    <div class="loading" id="loading">Building the rooms…</div>
+    <div class="topbar">
+      <div class="where" id="where">Entrance</div>
+      <div class="modes" role="group" aria-label="View">
+        <button type="button" id="mWalk" aria-pressed="true">Walk</button>
+        <button type="button" id="mHouse" aria-pressed="false">Top view</button>
+      </div>
+    </div>
+    <div class="joy" id="joy" aria-label="Move"><div class="knob" id="knob"></div></div>
+    <div class="hint" id="hint">Drag to look around. Use the circle or W A S D keys to walk.</div>
+  </div>
+  <div class="rooms" id="rooms" aria-label="Jump to a room"></div>
+</div>
+
+<section class="wrap">
+  <h2>Colours and finishes</h2>
+  <p class="sub">One palette for the whole flat. Ivory walls let the art stand out, with one deep accent wall per room.</p>
+  <div class="swatches">
+    <div class="sw"><i style="background:#f6eedc"></i><div><b>Warm ivory</b><span>All base walls, matte</span></div></div>
+    <div class="sw"><i style="background:#b3744f"></i><div><b>Terracotta</b><span>Living room TV wall</span></div></div>
+    <div class="sw"><i style="background:#9a4a3e"></i><div><b>Kumkum maroon</b><span>Master bed wall, with kolam</span></div></div>
+    <div class="sw"><i style="background:#e7c35f"></i><div><b>Turmeric</b><span>Bedroom 2 bed wall</span></div></div>
+    <div class="sw"><i style="background:#4f669e"></i><div><b>Indigo</b><span>Office desk wall, living ceiling</span></div></div>
+    <div class="sw"><i style="background:#ad7f53"></i><div><b>Teak laminate</b><span>TV unit, pillars, mandir, kitchen base</span></div></div>
+    <div class="sw"><i style="background:#ddc29e"></i><div><b>Light oak</b><span>Master wardrobe and loft</span></div></div>
+    <div class="sw"><i style="background:#e0b463"></i><div><b>Brass</b><span>Handles, pillar rings, trims</span></div></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>Room by room</h2>
+  <p class="sub">Sizes are from the builder's plan. Windows in the living room and both bedrooms face east.</p>
+  <div class="roomgrid">
+    <div class="room"><h3>Living room</h3><div class="dim">10'6" × 18'6"</div><ul>
+      <li>Teak TV unit between two wooden pillars with brass rings</li>
+      <li>Wall mandir in the north-east corner with a kolam backdrop</li>
+      <li>Indigo kolam ceiling panel with warm hidden lighting</li>
+      <li>6 ft teak-frame sofa, kalamkari canvas above it</li>
+      <li>Round 4-seater dining table near the kitchen side</li>
+    </ul></div>
+    <div class="room"><h3>Entrance</h3><div class="dim">Main door + office door</div><ul>
+      <li>Main door hinged on the left so it folds back against the wall</li>
+      <li>Shoe cabinet with a cushioned seat and mirror above</li>
+    </ul></div>
+    <div class="room"><h3>Kitchen</h3><div class="dim">10'0" × 7'1"</div><ul>
+      <li>Parallel counters, black granite, steel drawers below</li>
+      <li>3-burner hob facing east, chimney above</li>
+      <li>Sink under the window, double-door fridge at the end</li>
+      <li>Tall pantry with microwave slot, lofts up to the ceiling</li>
+    </ul></div>
+    <div class="room"><h3>Master bedroom</h3><div class="dim">11'0" × 12'6"</div><ul>
+      <li>Queen bed, maroon wall with a painted kolam</li>
+      <li>Work desk by the north wall</li>
+      <li>7.7 ft wardrobe: sarees, shirts and trousers, dressing niche, kids' clothes, swivel ironing board</li>
+    </ul></div>
+    <div class="room"><h3>Bedroom 2</h3><div class="dim">10'0" × 12'6"</div><ul>
+      <li>Queen storage bed, turmeric accent wall with a framed canvas</li>
+      <li>Cream wardrobe with loft, kept flexible for later</li>
+    </ul></div>
+    <div class="room"><h3>Office and lab</h3><div class="dim">6' × 10'</div><ul>
+      <li>Desk along the indigo wall with a framed kolam</li>
+      <li>Grey storage along the long wall</li>
+    </ul></div>
+    <div class="room"><h3>Utility balcony</h3><div class="dim">Next to kitchen</div><ul>
+      <li>Front-load washing machine on a raised base</li>
+      <li>Tall cabinet for broom and mop, drying rods above</li>
+    </ul></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>Notes for the carpenter</h2>
+  <ul class="notes">
+    <li>Office door opens into the office. The two doors are less than a foot apart.</li>
+    <li>Wardrobe shutters are hinged, not sliding, so the pull-outs can open fully.</li>
+    <li>Ironing board in the wardrobe must be a swivel type. A straight pull-out hits the bed.</li>
+    <li>Kitchen upper cabinets start about 7 ft from the floor.</li>
+    <li>Fridge space is about 27 inches wide. Measure before buying.</li>
+    <li>Use branded soft-close drawer channels. Saree trays are heavy.</li>
+    <li>Fit safety grills on all large windows before moving in.</li>
+    <li>Fix the TV unit and wardrobes to the wall so they cannot tip.</li>
+  </ul>
+</section>
+
+<section class="wrap">
+  <h2>Rough budget</h2>
+  <p class="sub">Estimates for laminate-finish plywood in the Bhiwandi–Thane area. Get two or three quotes against this plan before deciding.</p>
+  <div class="tablebox"><table>
+    <thead><tr><th>Item</th><th>Estimate</th></tr></thead>
+    <tbody>
+      <tr><td>Kitchen with lofts</td><td>₹1.3–1.8 L</td></tr>
+      <tr><td>Two wardrobes</td><td>₹1.4–2.0 L</td></tr>
+      <tr><td>Wardrobe fittings (saree pull-out, ironing board, channels)</td><td>₹0.25–0.4 L</td></tr>
+      <tr><td>Two storage beds</td><td>₹0.6–1.0 L</td></tr>
+      <tr><td>TV unit, pillars and mandir</td><td>₹0.5–0.8 L</td></tr>
+      <tr><td>Ceiling panel and lighting</td><td>₹0.5–0.8 L</td></tr>
+      <tr><td>Extra lofts and crockery unit</td><td>₹0.6–0.9 L</td></tr>
+      <tr><td>Sofa and dining set</td><td>₹0.6–1.0 L</td></tr>
+      <tr><td>Electrical, curtains, mirrors</td><td>₹0.4–0.7 L</td></tr>
+      <tr><td>Contingency</td><td>₹0.5–0.7 L</td></tr>
+    </tbody>
+    <tfoot><tr><td>Total</td><td>₹6.7–10.1 L</td></tr></tfoot>
+  </table></div>
+</section>
+
+<footer class="wrap">Concept model, October 2026. Furniture is simplified and the kalamkari frames are placeholders. Confirm every measurement on site before work starts.</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script id="scene-data" type="application/json">{"m":[["Fabric",[0.55,0.57,0.6],0.0,0.9,0.0,0.0,""],["Teak",[0.42,0.22,0.09],0.0,0.45,0.0,0.0,""],["CreamMatte",[0.9,0.86,0.76],0.0,0.6,0.0,0.0,""],["Granite",[0.05,0.05,0.06],0.0,0.15,0.0,0.0,""],["WhiteLam",[0.92,0.92,0.9],0.0,0.4,0.0,0.0,""],["CoveLED",[1.0,0.8,0.5],0.0,0.5,0.0,8.0,""],["Indigo",[0.08,0.12,0.3],0.0,0.9,0.0,0.0,""],["GreyMatte",[0.42,0.43,0.44],0.0,0.6,0.0,0.0,""],["Glass",[0.8,0.8,0.8],0.0,0.02,1.0,0.0,""],["Alu",[0.75,0.75,0.77],1.0,0.5,0.0,0.0,""],["Brass",[0.85,0.62,0.25],1.0,0.3,0.0,0.0,""],["TVBlack",[0.02,0.02,0.02],0.0,0.2,0.0,0.0,""],["Pot",[0.55,0.27,0.15],0.0,0.9,0.0,0.0,""],["Leaf",[0.1,0.3,0.08],0.0,0.6,0.0,0.0,""],["Steel",[0.8,0.8,0.82],1.0,0.25,0.0,0.0,""],["BlackGlass",[0.02,0.02,0.02],0.0,0.05,0.0,0.0,""],["Plinth",[0.15,0.12,0.1],0.0,0.6,0.0,0.0,""],["Tile",[0.75,0.82,0.86],0.0,0.2,0.0,0.0,""],["IvoryGloss",[0.92,0.89,0.82],0.0,0.15,0.0,0.0,""],["WMWhite",[0.95,0.95,0.95],0.0,0.3,0.0,0.0,""],["SofaFabric",[0.8,0.73,0.6],0.0,0.95,0.0,0.0,""],["Mustard",[0.75,0.52,0.08],0.0,0.9,0.0,0.0,""],["Terracotta",[0.45,0.18,0.09],0.0,0.85,0.0,0.0,""],["WR_Inner",[0.93,0.91,0.86],0.0,0.4,0.0,0.0,""],["LightOak",[0.72,0.55,0.36],0.0,0.5,0.0,0.0,""],["WR_C5",[0.45,0.1,0.4],0.0,0.9,0.0,0.0,""],["WR_C2",[0.05,0.3,0.25],0.0,0.9,0.0,0.0,""],["WR_C6",[0.9,0.85,0.7],0.0,0.9,0.0,0.0,""],["WR_C0",[0.55,0.05,0.08],0.0,0.9,0.0,0.0,""],["WR_C1",[0.8,0.55,0.05],0.0,0.9,0.0,0.0,""],["WR_C3",[0.1,0.12,0.4],0.0,0.9,0.0,0.0,""],["WR_Velvet",[0.4,0.05,0.07],0.0,0.9,0.0,0.0,""],["WR_LED",[1.0,0.85,0.6],0.0,0.5,0.0,6.0,""],["WR_S3",[0.35,0.35,0.4],0.0,0.9,0.0,0.0,""],["WR_S4",[0.7,0.8,0.75],0.0,0.9,0.0,0.0,""],["WR_S2",[0.95,0.95,0.95],0.0,0.9,0.0,0.0,""],["WR_S1",[0.45,0.6,0.8],0.0,0.9,0.0,0.0,""],["WR_S0",[0.85,0.88,0.92],0.0,0.9,0.0,0.0,""],["WR_Board",[0.55,0.62,0.7],0.0,0.9,0.0,0.0,""],["WR_C7",[0.2,0.45,0.15],0.0,0.9,0.0,0.0,""],["WR_C4",[0.85,0.4,0.1],0.0,0.9,0.0,0.0,""],["Art_KolamCeiling",[0.8,0.8,0.8],0.0,0.8,0.0,0.0,"kolam_ceiling"],["Art_living_sofa_blank",[0.92,0.86,0.72],0.0,0.9,0.0,0.0,""],["Maroon",[0.33,0.06,0.05],0.0,0.85,0.0,0.0,""],["Art_KolamMaster",[0.8,0.8,0.8],0.0,0.8,0.0,0.0,"kolam_master"],["Art_bed2_blank",[0.93,0.88,0.75],0.0,0.9,0.0,0.0,""],["Art_KolamOffice",[0.8,0.8,0.8],0.0,0.8,0.0,0.0,"kolam_office"],["FrameGold",[0.78,0.58,0.22],1.0,0.35,0.0,0.0,""],["Kumkum",[0.55,0.04,0.03],0.0,0.6,0.0,0.0,""],["Art_KolamMandir",[0.8,0.8,0.8],0.0,0.8,0.0,0.0,"kolam_mandir"]],"o":[["b",0,[1.35,4.941,0.0,3.31,6.465,0.488]],["b",1,[3.17,4.941,0.0,3.31,6.465,1.067]],["b",1,[0.043,5.334,0.701,0.549,6.553,0.762]],["b",2,[3.414,3.591,0.0,5.395,4.157,2.134]],["b",0,[4.398,4.941,0.0,6.358,6.465,0.488]],["b",1,[6.218,4.941,0.0,6.358,6.465,1.067]],["b",1,[0.043,6.498,0.0,0.549,6.544,0.701]],["b",1,[0.043,5.34,0.0,0.549,5.386,0.701]],["b",3,[0.107,5.63,0.914,0.137,6.239,1.311]],["b",3,[0.091,5.904,0.762,0.183,5.965,0.914]],["b",3,[0.61,5.691,0.427,1.097,6.178,0.488]],["b",3,[1.036,5.691,0.488,1.097,6.178,1.036]],["b",4,[2.835,5.081,0.488,3.139,6.331,0.64]],["b",1,[8.291,3.283,2.789,8.382,5.294,2.877]],["b",1,[10.058,3.283,2.789,10.15,5.294,2.877]],["b",1,[8.382,5.203,2.789,10.058,5.294,2.877]],["b",1,[8.382,3.283,2.789,10.058,3.374,2.877]],["b",5,[8.412,5.157,2.871,10.028,5.188,2.877]],["b",6,[8.534,3.618,0.0,9.693,5.081,0.009]],["b",1,[8.9,3.923,0.366,9.388,4.776,0.411]],["b",7,[10.884,3.801,0.701,12.585,4.377,0.762]],["b",7,[10.912,4.304,0.0,12.558,4.349,0.701]],["b",7,[12.268,1.454,0.0,12.628,3.679,2.134]],["b",8,[0.61,7.306,0.152,2.743,7.312,2.438]],["b",9,[0.61,7.291,0.152,0.64,7.321,2.438]],["b",9,[1.676,7.291,0.152,1.707,7.321,2.438]],["b",9,[2.713,7.291,0.152,2.743,7.321,2.438]],["b",9,[0.61,7.291,0.152,2.743,7.321,0.183]],["b",9,[0.61,7.291,2.408,2.743,7.321,2.438]],["b",9,[0.737,7.37,0.152,0.749,7.382,2.438]],["b",9,[0.87,7.37,0.152,0.882,7.382,2.438]],["b",9,[1.004,7.37,0.152,1.016,7.382,2.438]],["b",9,[1.137,7.37,0.152,1.149,7.382,2.438]],["b",9,[1.27,7.37,0.152,1.282,7.382,2.438]],["b",9,[1.404,7.37,0.152,1.416,7.382,2.438]],["b",9,[1.537,7.37,0.152,1.549,7.382,2.438]],["b",9,[1.67,7.37,0.152,1.682,7.382,2.438]],["b",9,[1.804,7.37,0.152,1.816,7.382,2.438]],["b",9,[1.937,7.37,0.152,1.949,7.382,2.438]],["b",9,[2.07,7.37,0.152,2.083,7.382,2.438]],["b",9,[2.204,7.37,0.152,2.216,7.382,2.438]],["b",9,[2.337,7.37,0.152,2.349,7.382,2.438]],["b",9,[2.47,7.37,0.152,2.483,7.382,2.438]],["b",9,[2.604,7.37,0.152,2.616,7.382,2.438]],["b",8,[3.81,7.306,0.152,5.791,7.312,2.438]],["b",9,[3.81,7.291,0.152,3.84,7.321,2.438]],["b",9,[4.801,7.291,0.152,4.831,7.321,2.438]],["b",9,[5.761,7.291,0.152,5.791,7.321,2.438]],["b",9,[3.81,7.291,0.152,5.791,7.321,0.183]],["b",9,[3.81,7.291,2.408,5.791,7.321,2.438]],["b",9,[3.936,7.37,0.152,3.948,7.382,2.438]],["b",9,[4.068,7.37,0.152,4.08,7.382,2.438]],["b",9,[4.2,7.37,0.152,4.212,7.382,2.438]],["b",9,[4.332,7.37,0.152,4.344,7.382,2.438]],["b",9,[4.464,7.37,0.152,4.476,7.382,2.438]],["b",9,[4.596,7.37,0.152,4.609,7.382,2.438]],["b",9,[4.728,7.37,0.152,4.741,7.382,2.438]],["b",9,[4.861,7.37,0.152,4.873,7.382,2.438]],["b",9,[4.993,7.37,0.152,5.005,7.382,2.438]],["b",9,[5.125,7.37,0.152,5.137,7.382,2.438]],["b",9,[5.257,7.37,0.152,5.269,7.382,2.438]],["b",9,[5.389,7.37,0.152,5.401,7.382,2.438]],["b",9,[5.521,7.37,0.152,5.533,7.382,2.438]],["b",9,[5.653,7.37,0.152,5.665,7.382,2.438]],["b",8,[8.291,5.608,0.152,10.424,5.614,2.438]],["b",9,[8.291,5.593,0.152,8.321,5.624,2.438]],["b",9,[9.357,5.593,0.152,9.388,5.624,2.438]],["b",9,[10.394,5.593,0.152,10.424,5.624,2.438]],["b",9,[8.291,5.593,0.152,10.424,5.624,0.183]],["b",9,[8.291,5.593,2.408,10.424,5.624,2.438]],["b",9,[8.418,5.672,0.152,8.43,5.685,2.438]],["b",9,[8.551,5.672,0.152,8.563,5.685,2.438]],["b",9,[8.685,5.672,0.152,8.697,5.685,2.438]],["b",9,[8.818,5.672,0.152,8.83,5.685,2.438]],["b",9,[8.951,5.672,0.152,8.963,5.685,2.438]],["b",9,[9.085,5.672,0.152,9.097,5.685,2.438]],["b",9,[9.218,5.672,0.152,9.23,5.685,2.438]],["b",9,[9.351,5.672,0.152,9.363,5.685,2.438]],["b",9,[9.485,5.672,0.152,9.497,5.685,2.438]],["b",9,[9.618,5.672,0.152,9.63,5.685,2.438]],["b",9,[9.751,5.672,0.152,9.764,5.685,2.438]],["b",9,[9.885,5.672,0.152,9.897,5.685,2.438]],["b",9,[10.018,5.672,0.152,10.03,5.685,2.438]],["b",9,[10.151,5.672,0.152,10.164,5.685,2.438]],["b",9,[10.285,5.672,0.152,10.297,5.685,2.438]],["b",4,[6.706,5.02,0.0,7.193,5.569,0.427]],["b",4,[6.462,3.984,0.792,6.828,4.441,0.884]],["b",4,[0.061,2.673,0.0,0.61,3.283,0.427]],["b",4,[1.372,3.13,0.792,1.829,3.466,0.884]],["b",9,[6.462,3.953,1.067,6.477,4.471,1.676]],["b",1,[7.678,3.618,0.335,8.077,4.959,0.64]],["b",10,[8.077,3.618,0.472,8.086,4.959,0.503]],["b",11,[7.678,3.709,1.036,7.718,4.929,1.737]],["c",1,[7.681,4.99,0.213,7.864,5.172,2.621]],["b",1,[7.666,4.965,0.0,7.894,5.197,0.213]],["b",1,[7.666,4.953,2.621,7.91,5.209,2.743]],["c",10,[7.669,4.977,0.427,7.876,5.185,0.472]],["c",10,[7.669,4.977,2.408,7.876,5.185,2.454]],["c",1,[7.681,3.405,0.213,7.864,3.587,2.621]],["b",1,[7.666,3.38,0.0,7.894,3.612,0.213]],["b",1,[7.666,3.368,2.621,7.91,3.624,2.743]],["c",10,[7.669,3.392,0.427,7.876,3.6,0.472]],["c",10,[7.669,3.392,2.408,7.876,3.6,2.454]],["c",12,[7.794,3.776,0.64,7.964,3.947,0.838]],["b",13,[-1.0,-1.0,-1.0,1.0,1.0,1.0],[0.0014,-0.0283,-0.0405,7.8549,0.0043,0.0102,-0.0265,3.8555,0.001,-0.0051,0.1709,1.0005]],["b",13,[-1.0,-1.0,-1.0,1.0,1.0,1.0],[0.003,-0.0231,-0.0236,7.8974,0.0035,0.0194,0.0259,3.878,-0.0001,-0.0042,0.2479,1.0733]],["b",13,[-1.0,-1.0,-1.0,1.0,1.0,1.0],[-0.0037,-0.0179,-0.0017,7.8551,0.0026,-0.0238,0.0454,3.8444,-0.0007,0.0064,0.1647,0.9938]],["b",13,[-1.0,-1.0,-1.0,1.0,1.0,1.0],[-0.0041,-0.0137,-0.018,7.8604,0.002,-0.0272,0.0257,3.8502,-0.0005,0.0019,0.2357,1.0608]],["b",13,[-1.0,-1.0,-1.0,1.0,1.0,1.0],[0.0039,-0.0161,0.0118,7.8539,0.0024,0.0258,-0.0175,3.8683,-0.0,0.0026,0.2454,1.0692]],["b",13,[-1.0,-1.0,-1.0,1.0,1.0,1.0],[0.0027,-0.0242,0.0326,7.854,0.0037,0.0177,-0.0178,3.8883,-0.0001,0.0055,0.1995,1.0259]],["b",13,[-1.0,-1.0,-1.0,1.0,1.0,1.0],[0.0012,-0.0289,0.0419,7.8835,0.0044,0.0081,-0.0106,3.8851,-0.0,0.0053,0.2456,1.0723]],["b",1,[3.411,1.53,0.091,3.932,2.14,2.225]],["b",14,[3.886,1.515,0.762,3.901,1.53,1.676]],["b",15,[3.459,1.515,1.128,3.886,1.591,1.463]],["b",16,[3.932,1.561,0.0,5.364,2.14,0.091]],["b",1,[3.932,1.545,0.091,5.364,2.14,0.838]],["b",1,[3.938,1.527,0.098,4.403,1.545,0.329]],["b",14,[3.984,1.512,0.293,4.358,1.527,0.308]],["b",1,[3.938,1.527,0.341,4.403,1.545,0.573]],["b",14,[3.984,1.512,0.536,4.358,1.527,0.552]],["b",1,[3.938,1.527,0.585,4.403,1.545,0.823]],["b",14,[3.984,1.512,0.786,4.358,1.527,0.802]],["b",1,[4.416,1.527,0.098,4.881,1.545,0.329]],["b",14,[4.461,1.512,0.293,4.835,1.527,0.308]],["b",1,[4.416,1.527,0.341,4.881,1.545,0.573]],["b",14,[4.461,1.512,0.536,4.835,1.527,0.552]],["b",1,[4.416,1.527,0.585,4.881,1.545,0.823]],["b",14,[4.461,1.512,0.786,4.835,1.527,0.802]],["b",1,[4.893,1.527,0.098,5.358,1.545,0.329]],["b",14,[4.939,1.512,0.293,5.313,1.527,0.308]],["b",1,[4.893,1.527,0.341,5.358,1.545,0.573]],["b",14,[4.939,1.512,0.536,5.313,1.527,0.552]],["b",1,[4.893,1.527,0.585,5.358,1.545,0.823]],["b",14,[4.939,1.512,0.786,5.313,1.527,0.802]],["b",3,[3.932,1.515,0.838,5.38,2.155,0.878]],["b",15,[4.267,1.606,0.878,5.029,2.048,0.89]],["c",10,[4.349,1.704,0.89,4.52,1.875,0.899]],["c",10,[4.776,1.704,0.89,4.947,1.875,0.899]],["c",10,[4.563,1.841,0.89,4.734,2.012,0.899]],["b",14,[4.267,1.637,1.707,5.029,2.14,1.844]],["b",14,[4.542,1.911,1.844,4.755,2.14,2.225]],["b",17,[3.932,2.134,0.878,5.364,2.14,1.524]],["b",18,[3.932,1.774,1.524,4.252,2.14,2.225]],["b",18,[5.044,1.774,1.524,5.364,2.14,2.225]],["b",18,[3.411,1.53,2.225,5.364,2.14,2.835]],["b",14,[4.42,1.21,0.107,4.877,1.545,0.32]],["b",16,[3.411,0.058,0.0,5.608,0.637,0.091]],["b",1,[3.411,0.058,0.091,5.608,0.652,0.838]],["b",1,[3.417,0.652,0.098,3.954,0.671,0.329]],["b",14,[3.463,0.671,0.293,3.908,0.686,0.308]],["b",1,[3.417,0.652,0.341,3.954,0.671,0.573]],["b",14,[3.463,0.671,0.536,3.908,0.686,0.552]],["b",1,[3.417,0.652,0.585,3.954,0.671,0.823]],["b",14,[3.463,0.671,0.786,3.908,0.686,0.802]],["b",1,[3.966,0.652,0.098,4.503,0.671,0.329]],["b",14,[4.012,0.671,0.293,4.458,0.686,0.308]],["b",1,[3.966,0.652,0.341,4.503,0.671,0.573]],["b",14,[4.012,0.671,0.536,4.458,0.686,0.552]],["b",1,[3.966,0.652,0.585,4.503,0.671,0.823]],["b",14,[4.012,0.671,0.786,4.458,0.686,0.802]],["b",1,[4.516,0.652,0.098,5.053,0.671,0.329]],["b",14,[4.561,0.671,0.293,5.007,0.686,0.308]],["b",1,[4.512,0.652,0.339,5.057,0.671,0.574]],["b",14,[4.558,0.671,0.537,5.01,0.686,0.552]],["b",1,[4.516,0.652,0.585,5.053,0.671,0.823]],["b",14,[4.561,0.671,0.786,5.007,0.686,0.802]],["b",1,[5.065,0.652,0.098,5.602,0.671,0.329]],["b",14,[5.111,0.671,0.293,5.557,0.686,0.308]],["b",1,[5.065,0.652,0.341,5.602,0.671,0.573]],["b",14,[5.111,0.671,0.536,5.557,0.686,0.552]],["b",1,[5.065,0.652,0.585,5.602,0.671,0.823]],["b",14,[5.111,0.671,0.786,5.557,0.686,0.802]],["b",3,[3.399,0.052,0.838,5.624,0.683,0.878]],["b",14,[4.023,0.174,0.872,4.694,0.555,0.884]],["c",14,[4.34,0.125,0.884,4.377,0.162,1.189]],["b",17,[3.411,0.058,0.878,5.608,0.064,1.524]],["b",18,[4.816,0.058,1.524,5.608,0.424,2.225]],["b",14,[5.639,0.067,0.0,6.325,0.783,1.89]],["b",16,[5.974,0.783,0.091,5.989,0.799,1.829]],["b",16,[5.928,0.799,0.762,5.95,0.814,1.372]],["b",16,[6.014,0.799,0.762,6.035,0.814,1.372]],["b",18,[3.411,0.058,2.225,6.325,0.668,2.835]],["b",8,[3.901,0.024,1.067,4.755,0.03,2.134]],["b",3,[2.195,0.058,0.0,2.865,0.722,0.091]],["b",19,[2.21,0.067,0.091,2.835,0.692,0.945]],["c",14,[-0.229,-0.229,-0.152,0.229,0.229,0.152],[-0.0,0.0,1.5,2.8407,0.0,1.0,0.0,0.3871,-0.0333,0.0,-0.0,0.4877]],["b",18,[2.195,0.058,1.097,2.743,0.722,1.951]],["b",7,[2.195,1.423,0.0,2.652,2.14,2.134]],["b",18,[2.195,0.058,2.225,2.682,2.14,2.743]],["b",14,[2.865,0.143,2.56,2.883,2.033,2.579]],["b",14,[3.018,0.143,2.56,3.036,2.033,2.579]],["b",14,[3.17,0.143,2.56,3.188,2.033,2.579]],["b",2,[3.414,3.591,2.195,5.395,4.157,2.835]],["b",1,[6.459,0.143,0.091,6.767,2.063,0.914]],["b",3,[6.447,0.128,0.914,6.782,2.079,0.945]],["b",8,[6.459,0.143,1.219,6.706,2.063,2.195]],["b",1,[6.459,0.143,2.195,6.721,2.063,2.286]],["c",1,[9.949,5.428,0.0,10.016,5.496,0.168]],["c",10,[9.959,5.439,0.0,10.005,5.485,0.018]],["c",1,[9.949,3.752,0.0,10.016,3.819,0.168]],["c",10,[9.959,3.763,0.0,10.005,3.808,0.018]],["c",1,[10.644,5.428,0.0,10.711,5.496,0.168]],["c",10,[10.654,5.439,0.0,10.7,5.485,0.018]],["c",1,[10.644,3.752,0.0,10.711,3.819,0.168]],["c",10,[10.654,3.763,0.0,10.7,3.808,0.018]],["b",1,[9.906,3.725,0.168,10.753,5.523,0.32]],["b",1,[9.906,5.386,0.32,10.753,5.523,0.655]],["b",1,[9.906,3.725,0.32,10.753,3.862,0.655]],["b",1,[10.647,3.862,0.32,10.753,5.386,0.914]],["b",20,[9.921,4.884,0.32,10.631,5.38,0.518]],["b",20,[-0.087,-0.248,-0.198,0.087,0.248,0.198],[0.9903,0.0,-0.1392,10.5507,0.0,1.0,0.0,5.1318,0.1392,0.0,0.9903,0.701]],["b",20,[9.921,4.376,0.32,10.631,4.872,0.518]],["b",20,[-0.087,-0.248,-0.198,0.087,0.248,0.198],[0.9903,0.0,-0.1392,10.5507,0.0,1.0,0.0,4.6238,0.1392,0.0,0.9903,0.701]],["b",20,[9.921,3.868,0.32,10.631,4.364,0.518]],["b",20,[-0.087,-0.248,-0.198,0.087,0.248,0.198],[0.9903,0.0,-0.1392,10.5507,0.0,1.0,0.0,4.1158,0.1392,0.0,0.9903,0.701]],["b",21,[-0.053,-0.183,-0.183,0.053,0.183,0.183],[0.9848,0.0,-0.1736,10.4104,0.0,1.0,0.0,5.2639,0.1736,0.0,0.9848,0.7163]],["b",22,[-0.053,-0.183,-0.183,0.053,0.183,0.183],[0.9848,0.0,-0.1736,10.4104,0.0,1.0,0.0,3.9837,0.1736,0.0,0.9848,0.7163]],["c",1,[8.937,4.691,0.0,8.986,4.74,0.366]],["c",1,[8.937,3.959,0.0,8.986,4.008,0.366]],["c",1,[9.302,4.691,0.0,9.351,4.74,0.366]],["c",1,[9.302,3.959,0.0,9.351,4.008,0.366]],["c",1,[8.199,0.814,0.732,9.174,1.789,0.762]],["c",1,[8.611,1.225,0.046,8.763,1.378,0.732]],["c",1,[8.412,1.027,0.0,8.961,1.576,0.046]],["b",1,[9.083,1.088,0.442,9.51,1.515,0.488]],["b",1,[9.476,1.103,0.488,9.513,1.5,0.914]],["b",20,[9.107,1.113,0.488,9.485,1.49,0.524]],["c",1,[9.098,1.469,0.0,9.129,1.5,0.442]],["c",1,[9.098,1.103,0.0,9.129,1.134,0.442]],["c",1,[9.464,1.469,0.0,9.495,1.5,0.442]],["c",1,[9.464,1.103,0.0,9.495,1.134,0.442]],["b",1,[8.473,0.479,0.442,8.9,0.905,0.488]],["b",1,[8.489,0.475,0.488,8.885,0.512,0.914]],["b",20,[8.498,0.503,0.488,8.876,0.881,0.524]],["c",1,[8.489,0.86,0.0,8.519,0.89,0.442]],["c",1,[8.489,0.494,0.0,8.519,0.524,0.442]],["c",1,[8.854,0.86,0.0,8.885,0.89,0.442]],["c",1,[8.854,0.494,0.0,8.885,0.524,0.442]],["b",1,[7.864,1.088,0.442,8.291,1.515,0.488]],["b",1,[7.861,1.103,0.488,7.897,1.5,0.914]],["b",20,[7.888,1.113,0.488,8.266,1.49,0.524]],["c",1,[7.879,1.469,0.0,7.91,1.5,0.442]],["c",1,[7.879,1.103,0.0,7.91,1.134,0.442]],["c",1,[8.245,1.469,0.0,8.275,1.5,0.442]],["c",1,[8.245,1.103,0.0,8.275,1.134,0.442]],["b",1,[8.473,1.698,0.442,8.9,2.124,0.488]],["b",1,[8.489,2.091,0.488,8.885,2.128,0.914]],["b",20,[8.498,1.722,0.488,8.876,2.1,0.524]],["c",1,[8.489,2.079,0.0,8.519,2.109,0.442]],["c",1,[8.489,1.713,0.0,8.519,1.743,0.442]],["c",1,[8.854,2.079,0.0,8.885,2.109,0.442]],["c",1,[8.854,1.713,0.0,8.885,1.743,0.442]],["b",1,[10.759,0.204,2.134,10.851,1.241,2.225]],["b",1,[8.778,0.058,0.091,9.723,0.363,0.792]],["b",16,[8.793,0.058,0.0,9.708,0.347,0.091]],["b",20,[8.778,0.058,0.792,9.723,0.363,0.869]],["b",10,[8.915,0.363,0.671,9.129,0.372,0.686]],["b",10,[9.373,0.363,0.671,9.586,0.372,0.686]],["b",1,[8.809,0.058,1.219,9.693,0.091,2.012]],["b",9,[8.87,0.091,1.28,9.632,0.098,1.951]],["b",16,[0.058,3.584,0.0,2.405,4.142,0.091]],["b",23,[0.058,3.584,0.091,2.405,3.594,2.134]],["b",23,[0.058,3.584,2.121,2.405,4.157,2.14]],["b",23,[0.058,3.584,0.091,2.405,4.157,0.11]],["b",23,[0.058,3.584,0.091,0.076,4.157,2.134]],["b",23,[0.628,3.584,0.091,0.646,4.157,2.134]],["b",23,[1.207,3.584,0.091,1.225,4.157,2.134]],["b",23,[1.817,3.584,0.091,1.835,4.157,2.134]],["b",23,[2.387,3.584,0.091,2.405,4.157,2.134]],["b",24,[0.07,4.157,0.116,0.625,4.176,0.36]],["b",14,[0.18,4.176,0.32,0.515,4.188,0.335]],["b",24,[0.07,4.157,0.372,0.625,4.176,0.619]],["b",14,[0.18,4.176,0.579,0.515,4.188,0.594]],["b",14,[0.088,3.615,1.356,0.607,4.127,1.372]],["b",25,[0.119,3.63,0.701,0.134,4.112,1.356]],["b",26,[0.171,3.63,0.701,0.186,4.112,1.356]],["b",27,[0.223,3.63,0.701,0.238,4.112,1.356]],["b",28,[0.274,3.63,0.701,0.29,4.112,1.356]],["b",29,[0.326,3.63,0.701,0.341,4.112,1.356]],["b",29,[0.378,3.63,0.701,0.393,4.112,1.356]],["b",25,[0.43,3.63,0.701,0.445,4.112,1.356]],["b",28,[0.482,3.63,0.701,0.497,4.112,1.356]],["b",30,[0.533,3.63,0.701,0.549,4.112,1.356]],["b",14,[0.073,3.6,1.433,0.622,4.151,1.445]],["b",28,[0.104,3.676,1.445,0.347,4.066,1.524]],["b",29,[0.363,3.676,1.445,0.607,4.066,1.524]],["b",14,[0.073,3.6,1.573,0.622,4.151,1.585]],["b",27,[0.104,3.676,1.585,0.347,4.066,1.664]],["b",27,[0.363,3.676,1.585,0.607,4.066,1.664]],["b",14,[0.073,3.6,1.713,0.622,4.151,1.725]],["b",29,[0.104,3.676,1.725,0.347,4.066,1.804]],["b",30,[0.363,3.676,1.725,0.607,4.066,1.804]],["b",14,[0.073,3.6,1.853,0.622,4.151,1.865]],["b",29,[0.104,3.676,1.865,0.347,4.066,1.945]],["b",27,[0.363,3.676,1.865,0.607,4.066,1.945]],["b",14,[0.073,3.6,1.993,0.622,4.151,2.006]],["b",28,[0.104,3.676,2.006,0.347,4.066,2.085]],["b",29,[0.363,3.676,2.006,0.607,4.066,2.085]],["b",24,[0.649,4.157,0.116,1.204,4.176,0.299]],["b",14,[0.759,4.176,0.259,1.094,4.188,0.274]],["b",24,[0.649,4.157,0.311,1.204,4.176,0.512]],["b",14,[0.759,4.176,0.472,1.094,4.188,0.488]],["b",24,[0.649,4.157,0.524,1.204,4.176,0.725]],["b",14,[0.759,4.176,0.686,1.094,4.188,0.701]],["b",31,[0.668,3.645,0.686,1.186,4.127,0.701]],["b",1,[0.646,3.594,0.732,1.207,4.173,0.762]],["b",9,[0.661,3.594,0.792,1.192,3.603,1.615]],["b",32,[0.668,4.081,1.6,1.186,4.112,1.615]],["b",23,[0.646,3.594,1.615,1.207,4.142,1.634]],["b",23,[0.646,3.594,1.875,1.207,4.142,1.893]],["b",30,[0.683,3.676,1.634,0.789,4.036,1.768]],["b",28,[0.811,3.676,1.634,0.917,4.036,1.768]],["b",27,[0.939,3.676,1.634,1.045,4.036,1.768]],["b",28,[1.067,3.676,1.634,1.173,4.036,1.768]],["b",24,[1.228,4.157,0.116,1.814,4.176,0.329]],["b",14,[1.338,4.176,0.29,1.704,4.188,0.305]],["b",24,[1.228,4.157,0.341,1.814,4.176,0.558]],["b",14,[1.338,4.176,0.518,1.704,4.188,0.533]],["b",14,[1.247,3.615,1.143,1.795,4.127,1.158]],["b",14,[1.277,3.615,1.128,1.286,4.127,1.143]],["b",30,[1.271,3.676,0.701,1.292,4.066,1.128]],["b",14,[1.35,3.615,1.128,1.359,4.127,1.143]],["b",30,[1.344,3.676,0.701,1.366,4.066,1.128]],["b",14,[1.423,3.615,1.128,1.433,4.127,1.143]],["b",30,[1.417,3.676,0.701,1.439,4.066,1.128]],["b",14,[1.497,3.615,1.128,1.506,4.127,1.143]],["b",33,[1.49,3.676,0.701,1.512,4.066,1.128]],["b",14,[1.57,3.615,1.128,1.579,4.127,1.143]],["b",33,[1.564,3.676,0.701,1.585,4.066,1.128]],["b",14,[1.643,3.615,1.128,1.652,4.127,1.143]],["b",30,[1.637,3.676,0.701,1.658,4.066,1.128]],["b",14,[1.716,3.615,1.128,1.725,4.127,1.143]],["b",30,[1.71,3.676,0.701,1.731,4.066,1.128]],["b",23,[1.225,3.594,1.204,1.817,4.142,1.222]],["c",14,[-0.015,-0.015,-0.29,0.015,0.015,0.29],[-0.0,0.0,1.0,1.521,0.0,1.0,0.0,3.871,-1.0,0.0,-0.0,2.0422]],["b",34,[1.262,3.645,1.28,1.28,4.097,2.027]],["b",35,[1.314,3.645,1.28,1.332,4.097,2.027]],["b",34,[1.366,3.645,1.28,1.384,4.097,2.027]],["b",36,[1.417,3.645,1.28,1.436,4.097,2.027]],["b",37,[1.469,3.645,1.28,1.487,4.097,2.027]],["b",34,[1.521,3.645,1.28,1.539,4.097,2.027]],["b",34,[1.573,3.645,1.28,1.591,4.097,2.027]],["b",36,[1.625,3.645,1.28,1.643,4.097,2.027]],["b",35,[1.676,3.645,1.28,1.695,4.097,2.027]],["b",37,[1.728,3.645,1.28,1.747,4.097,2.027]],["b",24,[1.838,4.157,0.116,2.393,4.176,0.299]],["b",14,[1.948,4.176,0.259,2.283,4.188,0.274]],["b",24,[1.838,4.157,0.311,2.393,4.176,0.497]],["b",14,[1.948,4.176,0.457,2.283,4.188,0.472]],["b",24,[1.838,4.157,0.509,2.393,4.176,0.695]],["b",14,[1.948,4.176,0.655,2.283,4.188,0.671]],["b",24,[1.838,4.157,0.716,2.393,4.176,0.838]],["b",38,[1.216,4.176,0.869,2.344,4.538,0.884]],["b",14,[2.222,4.157,0.838,2.313,4.34,0.869]],["b",23,[1.835,3.594,0.853,2.396,4.142,0.872]],["b",23,[1.835,3.594,1.707,2.396,4.142,1.725]],["b",23,[1.835,3.594,1.92,2.396,4.142,1.939]],["c",14,[-0.012,-0.012,-0.274,0.012,0.012,0.274],[-0.0,0.0,1.0,2.1153,0.0,1.0,0.0,3.871,-1.0,0.0,-0.0,1.6612]],["b",29,[1.871,3.691,1.28,1.89,4.051,1.646]],["b",28,[1.932,3.691,1.28,1.951,4.051,1.646]],["b",30,[1.993,3.691,1.28,2.012,4.051,1.646]],["b",39,[2.054,3.691,1.28,2.073,4.051,1.646]],["b",27,[2.115,3.691,1.28,2.134,4.051,1.646]],["b",25,[2.176,3.691,1.28,2.195,4.051,1.646]],["b",39,[2.237,3.691,1.28,2.256,4.051,1.646]],["b",39,[2.298,3.691,1.28,2.316,4.051,1.646]],["b",25,[1.871,3.676,0.872,2.009,4.066,1.006]],["b",40,[2.039,3.676,0.872,2.176,4.066,1.006]],["b",30,[2.207,3.676,0.872,2.344,4.066,1.006]],["b",23,[0.058,3.584,2.14,2.405,4.157,2.835]],["b",24,[0.064,4.157,2.149,0.631,4.176,2.825]],["b",24,[0.643,4.157,2.149,1.21,4.176,2.825]],["b",24,[1.222,4.157,2.149,1.82,4.176,2.825]],["b",24,[1.832,4.157,2.149,2.399,4.176,2.825]],["p",41,[-0.5,-0.5,0.0,0.5,0.5,0.0],[1.6764,0.0,0.0,9.2202,0.0,-1.8288,0.0,4.2885,0.0,-0.0,-1.0,2.8743]],["p",42,[-0.5,-0.5,0.0,0.5,0.5,0.0],[-0.0,-0.0,-1.0,10.7503,-1.4021,0.0,0.0,4.6238,0.0,1.0363,-0.0,1.7983]],["b",43,[10.723,3.868,2.289,10.759,5.38,2.344]],["b",43,[10.723,3.868,1.253,10.759,5.38,1.308]],["b",43,[10.723,3.895,1.28,10.759,3.95,2.316]],["b",43,[10.723,5.297,1.28,10.759,5.352,2.316]],["p",44,[-0.5,-0.5,0.0,0.5,0.5,0.0],[-0.0,-0.0,-1.0,3.2888,-1.2192,0.0,0.0,5.7028,0.0,1.2192,-0.0,1.8288]],["p",45,[-0.5,-0.5,0.0,0.5,0.5,0.0],[-0.0,-0.0,-1.0,6.3368,-1.0973,0.0,0.0,5.7028,0.0,0.9144,-0.0,1.8288]],["b",1,[6.309,5.099,2.259,6.346,6.306,2.313]],["b",1,[6.309,5.099,1.344,6.346,6.306,1.399]],["b",1,[6.309,5.127,1.372,6.346,5.182,2.286]],["b",1,[6.309,6.224,1.372,6.346,6.279,2.286]],["p",46,[-0.5,-0.5,0.0,0.5,0.5,0.0],[0.7315,0.0,0.0,11.7348,0.0,-0.0,-1.0,4.3449,0.0,0.7315,-0.0,1.7069]],["b",47,[11.332,4.336,2.06,12.137,4.372,2.085]],["b",47,[11.332,4.336,1.329,12.137,4.372,1.353]],["b",47,[12.082,3.988,1.695,12.119,4.72,1.719]],["b",47,[11.351,3.988,1.695,11.387,4.72,1.719]],["b",1,[7.678,5.209,0.792,8.062,5.611,0.975]],["b",10,[8.062,5.34,0.869,8.074,5.477,0.899]],["b",48,[7.678,5.209,0.975,7.696,5.611,1.707]],["b",1,[7.678,5.581,0.975,8.062,5.611,1.707]],["b",1,[7.678,5.209,0.975,8.062,5.24,1.707]],["b",10,[7.678,5.209,0.975,8.062,5.611,0.997]],["b",1,[7.678,5.2,1.707,8.077,5.621,1.798]],["c",1,[7.702,5.243,1.798,8.038,5.578,2.073]],["c",10,[7.843,5.383,2.073,7.897,5.438,2.149]],["c",10,[7.995,5.499,1.509,8.038,5.541,1.57]],["c",10,[7.995,5.279,1.509,8.038,5.322,1.57]],["p",49,[-0.5,-0.5,0.0,0.5,0.5,0.0],[-0.0,0.0,1.0,7.6992,0.3353,0.0,0.0,5.4102,0.0,0.3353,-0.0,1.3411]]]}</script>
+<script>
+(function(){
+const FT=0.3048, TOP=24.07, EYE=1.52;
+const stage=document.getElementById('stage');
+if(!window.THREE){document.getElementById('loading').textContent='The 3D view could not load. Check your connection and reload.';return;}
+const data=JSON.parse(document.getElementById('scene-data').textContent);
+
+const renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+renderer.outputEncoding=THREE.sRGBEncoding;
+renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.05;
+stage.prepend(renderer.domElement);
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0xbcd3e6);
+const camera=new THREE.PerspectiveCamera(72,1,0.05,200);
+const world=new THREE.Group(); world.rotation.x=-Math.PI/2; scene.add(world);
+
+scene.add(new THREE.HemisphereLight(0xfff4e2,0x8a7a66,0.75));
+const sun=new THREE.DirectionalLight(0xfff0d8,0.55); sun.position.set(2,8,-12); scene.add(sun);
+function lamp(px,py,i){const l=new THREE.PointLight(0xffd9a8,i,7,1.6);l.position.set(px*FT,2.6,(py-TOP)*FT);scene.add(l);}
+[[30,14,0.9],[30,20,0.6],[5.5,6,0.6],[16,6,0.6],[16,20.5,0.6],[38.5,14,0.5],[14,14.7,0.4]].forEach(a=>lamp(...a));
+
+/* kolam texture, generated (same pattern as the Blender model) */
+function lin2srgb(c){return c<=0.0031308?12.92*c:1.055*Math.pow(c,1/2.4)-0.055}
+function kolam(N,k,fg,bg,transparent){
+  const cv=document.createElement('canvas');cv.width=cv.height=N;const ctx=cv.getContext('2d');const img=ctx.createImageData(N,N);const px=img.data;
+  const c=N/2,s=N/(2*k+4),w=N/300,R=k*s,p=1.35,ip=1/p;
+  const F=fg.map(v=>Math.round(lin2srgb(v)*255)),B=bg.map(v=>Math.round(lin2srgb(v)*255));
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+    const a=(x-c)+(y-c),b=(x-c)-(y-c);const ac0=Math.floor(a/s)*s+s/2,bc0=Math.floor(b/s)*s+s/2;let on=false;
+    for(let i=-1;i<=1&&!on;i++)for(let j=-1;j<=1&&!on;j++){
+      const ac=ac0+i*s,bc=bc0+j*s,aa=Math.abs(ac),ab=Math.abs(bc);
+      const inner=aa<R&&ab<R,m=Math.max(aa,ab),edge=m>R&&m<R+s&&Math.min(aa,ab)<R-s*0.5;
+      if(!inner&&!edge)continue;
+      const da=a-ac,db=b-bc;
+      if(inner){const v=Math.pow(Math.pow(Math.abs(da)/1.4142,p)+Math.pow(Math.abs(db)/1.4142,p),ip);if(Math.abs(v-s*0.47)<w)on=true;}
+      if(edge&&!on){let ta,tb;if(aa>=ab){ta=Math.sign(ac)*da/1.4142;tb=db/1.4142}else{ta=Math.sign(bc)*db/1.4142;tb=da/1.4142}
+        const t=Math.pow(Math.pow(Math.abs(tb),p)+Math.pow(Math.max(Math.abs(ta)-Math.max(ta,0)*0.45,0),p),ip);if(Math.abs(t-s*0.36)<w)on=true;}
+      if(i===0&&j===0&&!on){if(Math.hypot(da,db)/1.4142<s*0.07)on=true;}
+    }
+    const o=(y*N+x)*4,C=on?F:B;px[o]=C[0];px[o+1]=C[1];px[o+2]=C[2];px[o+3]=on?255:(transparent?0:255);
+  }
+  ctx.putImageData(img,0,0);const t=new THREE.CanvasTexture(cv);t.encoding=THREE.sRGBEncoding;t.anisotropy=4;return t;
+}
+const IVO=[0.95,0.91,0.82],IND=[0.06,0.12,0.32],MAR=[0.33,0.06,0.05],RED=[0.55,0.04,0.03],GLD=[0.85,0.62,0.25];
+const kolamSpec={kolam_ceiling:[4,IVO,IND,false],kolam_master:[3,IVO,MAR,true],kolam_mandir:[2,GLD,RED,false],kolam_office:[3,IVO,IND,false]};
+
+/* materials */
+const mats=data.m.map(([name,rgb,met,rough,trans,emit,img])=>{
+  const m=new THREE.MeshStandardMaterial({color:new THREE.Color(rgb[0],rgb[1],rgb[2]),metalness:met*0.7,roughness:Math.max(rough,0.15)});
+  if(trans>0.5){m.transparent=true;m.opacity=0.14;m.color.setRGB(0.75,0.85,0.95);m.depthWrite=false;}
+  if(emit>0){m.emissive=new THREE.Color(rgb[0],rgb[1],rgb[2]);m.emissiveIntensity=1.2;}
+  if(img&&kolamSpec[img]){const sp=kolamSpec[img];m.map=kolam(512,sp[0],sp[1],sp[2],sp[3]);m.color.setRGB(1,1,1);if(sp[3]){m.transparent=true;m.alphaTest=0.3;}m.side=THREE.DoubleSide;}
+  if(name.indexOf('_blank')>-1){m.side=THREE.DoubleSide;}
+  return m;});
+const solid=(r,g,b,rough)=>new THREE.MeshStandardMaterial({color:new THREE.Color(r,g,b),roughness:rough??0.85});
+
+/* exported furniture and fittings */
+data.o.forEach(([shape,mi,bb,mw])=>{
+  const sx=Math.max(bb[3]-bb[0],0.002),sy=Math.max(bb[4]-bb[1],0.002),sz=Math.max(bb[5]-bb[2],0.002);
+  let g;
+  if(shape==='c'){g=new THREE.CylinderGeometry((sx+sy)/4,(sx+sy)/4,sz,20);g.rotateX(Math.PI/2);}
+  else if(shape==='p'){g=new THREE.PlaneGeometry(sx,sy);}
+  else g=new THREE.BoxGeometry(sx,sy,sz);
+  g.translate((bb[0]+bb[3])/2,(bb[1]+bb[4])/2,(bb[2]+bb[5])/2);
+  const mesh=new THREE.Mesh(g,mats[mi]||mats[0]);
+  if(mw){mesh.matrixAutoUpdate=false;mesh.matrix.set(mw[0],mw[1],mw[2],mw[3],mw[4],mw[5],mw[6],mw[7],mw[8],mw[9],mw[10],mw[11],0,0,0,1);}
+  world.add(mesh);
+});
+
+/* walls, floors, ceilings rebuilt from the plan (feet) */
+const H=0.19,WH=9.5;
+const rooms={Master:[0,11,0,12.5],Bed2:[11,21,0,12.5],CToilet:[21,25,5.57,12.71],Living:[25,35.5,5.57,24.07],Office:[35.5,41.5,9.57,19.57],
+  MToilet:[0,7,12.5,16.93],Passage:[7,21,12.5,16.86],Dining:[21,25,12.71,24.07],DB:[7,11,16.86,24.07],Kitchen:[11,21,16.86,24.07]};
+const roomName={Master:'Master bedroom',Bed2:'Bedroom 2',CToilet:'Common bathroom',Living:'Living room',Office:'Office and lab',MToilet:'Master bathroom',Passage:'Passage',Dining:'Dining',DB:'Utility balcony',Kitchen:'Kitchen'};
+const tile=solid(0.75,0.82,0.86,0.3);
+const sandal=solid(0.93,0.88,0.77);
+const wallMat={Living:sandal,Dining:sandal,Passage:sandal,Master:solid(0.93,0.89,0.80),Bed2:solid(0.94,0.88,0.76),Kitchen:solid(0.94,0.90,0.80),Office:solid(0.92,0.89,0.81),CToilet:tile,MToilet:tile,DB:tile};
+const accent={'Living_N':solid(0.45,0.18,0.09),'Master_S':solid(0.33,0.06,0.05),'Bed2_S':solid(0.80,0.56,0.12),'Office_E':solid(0.08,0.14,0.34)};
+const cuts=[[2,9,-0.5,0.5,0.5,8],[12.5,19,-0.5,0.5,0.5,8],[27.2,34.2,5.0,6.1,0.5,8],[8,10.7,12,13,0,7],[17.9,20.6,12,13,0,7],
+  [35,36,16.85,19.35,0,7],[35,36,20.1,23.3,0,7],[24.5,25.5,12.85,23.9,0,7.5],[20.5,21.5,12.9,16.6,0,7.5],[17.9,20.6,16.3,17.4,0,7],
+  [22,24.2,12.2,13.2,0,7],[6.5,7.5,13.2,15.6,0,7],[10.5,11.5,19.5,22,0,7],[12.8,15.6,23.45,24.45,3.5,7]];
+function sub(b,c){
+  if(!(b[0]<c[1]&&b[1]>c[0]&&b[2]<c[3]&&b[3]>c[2]&&b[4]<c[5]&&b[5]>c[4]))return[b];
+  const out=[],z0=Math.max(b[4],c[4]),z1=Math.min(b[5],c[5]);
+  if(c[4]>b[4])out.push([b[0],b[1],b[2],b[3],b[4],c[4]]);
+  if(c[5]<b[5])out.push([b[0],b[1],b[2],b[3],c[5],b[5]]);
+  if(c[0]>b[0])out.push([b[0],c[0],b[2],b[3],z0,z1]);
+  if(c[1]<b[1])out.push([c[1],b[1],b[2],b[3],z0,z1]);
+  const x0=Math.max(b[0],c[0]),x1=Math.min(b[1],c[1]);
+  if(c[2]>b[2])out.push([x0,x1,b[2],c[2],z0,z1]);
+  if(c[3]<b[3])out.push([x0,x1,c[3],b[3],z0,z1]);
+  return out;}
+const colliders=[],ceilings=[];
+function addBox(b,mat,arr){
+  const g=new THREE.BoxGeometry((b[1]-b[0])*FT,(b[3]-b[2])*FT,(b[5]-b[4])*FT);
+  const mesh=new THREE.Mesh(g,mat);mesh.position.set((b[0]+b[1])/2*FT,(TOP-(b[2]+b[3])/2)*FT,(b[4]+b[5])/2*FT);world.add(mesh);if(arr)arr.push(mesh);return mesh;}
+Object.entries(rooms).forEach(([r,[x0,x1,y0,y1]])=>{
+  const sides={N:[x0,x0+H,y0,y1],S:[x1-H,x1,y0,y1],E:[x0,x1,y0,y0+H],W:[x0,x1,y1-H,y1]};
+  Object.entries(sides).forEach(([sd,a])=>{
+    let pieces=[[a[0],a[1],a[2],a[3],0,WH]];
+    cuts.forEach(c=>{pieces=pieces.flatMap(p=>sub(p,c));});
+    const mat=accent[r+'_'+sd]||wallMat[r];
+    pieces.forEach(p=>{if(p[1]-p[0]<0.01||p[3]-p[2]<0.01||p[5]-p[4]<0.01)return;addBox(p,mat);if(p[4]<3)colliders.push(p);});
+  });
+  addBox([x0,x1,y0,y1,-0.1,0],r.indexOf('Toilet')>-1||r==='DB'?tile:solid(0.86,0.82,0.74,0.35));
+  addBox([x0,x1,y0,y1,9.5,9.6],solid(0.96,0.94,0.89,0.9),ceilings);
+});
+document.getElementById('loading').remove();
+
+/* views */
+const views=[
+  ['Entrance',[34.4,21.7],[27,12]],
+  ['Living room',[27,15.5],[34,8.9]],
+  ['TV and mandir',[33.5,11],[25.3,8.5]],
+  ['Kitchen',[19.6,20.4],[11.5,20.5]],
+  ['Master bedroom',[9.9,11.9],[3.5,0.5]],
+  ['Wardrobe',[6.3,5.2],[4,11.4]],
+  ['Bedroom 2',[12.2,11.4],[19,0.5]],
+  ['Office',[37.5,18.6],[38.5,10]],
+  ['Bathroom',[23,13.6],[22.8,5.8]],
+  ['Utility',[9.8,17.9],[8,22.8]],
+];
+const pos=new THREE.Vector3();let yaw=0,pitch=-0.05;
+function goTo(i){const v=views[i];pos.set(v[1][0]*FT,EYE,(v[1][1]-TOP)*FT);
+  const tx=v[2][0]*FT,tz=(v[2][1]-TOP)*FT;yaw=Math.atan2(-(tx-pos.x),-(tz-pos.z));pitch=-0.08;setMode('walk');
+  [...roomsEl.children].forEach((b,j)=>b.setAttribute('aria-pressed',j===i?'true':'false'));}
+const roomsEl=document.getElementById('rooms');
+views.forEach((v,i)=>{const b=document.createElement('button');b.type='button';b.textContent=v[0];b.setAttribute('aria-pressed','false');b.onclick=()=>goTo(i);roomsEl.appendChild(b);});
+
+/* modes */
+let mode='walk';let orbT=0.6,orbP=0.9,orbR=17;const orbC=new THREE.Vector3(20.75*FT,0,(12-TOP)*FT);
+const mWalk=document.getElementById('mWalk'),mHouse=document.getElementById('mHouse'),joy=document.getElementById('joy'),hint=document.getElementById('hint');
+function setMode(m){mode=m;mWalk.setAttribute('aria-pressed',m==='walk');mHouse.setAttribute('aria-pressed',m==='house');
+  ceilings.forEach(c=>c.visible=m==='walk');joy.hidden=m!=='walk';
+  hint.textContent=m==='walk'?'Drag to look around. Use the circle or W A S D keys to walk.':'Drag to turn the house. Pinch or scroll to zoom.';
+  if(m==='house')[...roomsEl.children].forEach(b=>b.setAttribute('aria-pressed','false'));}
+mWalk.onclick=()=>setMode('walk');mHouse.onclick=()=>setMode('house');
+
+/* look / orbit by dragging */
+const cv=renderer.domElement;const pts=new Map();let pinch0=0;
+cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);pts.set(e.pointerId,[e.clientX,e.clientY]);if(pts.size===2){const [a,b]=[...pts.values()];pinch0=Math.hypot(a[0]-b[0],a[1]-b[1]);}});
+cv.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId))return;const [px,py]=pts.get(e.pointerId);const dx=e.clientX-px,dy=e.clientY-py;pts.set(e.pointerId,[e.clientX,e.clientY]);
+  if(pts.size===2&&mode==='house'){const [a,b]=[...pts.values()];const d=Math.hypot(a[0]-b[0],a[1]-b[1]);if(pinch0){orbR=Math.min(30,Math.max(6,orbR*pinch0/d));}pinch0=d;return;}
+  if(mode==='walk'){yaw+=dx*0.005;pitch=Math.max(-1.2,Math.min(1.2,pitch+dy*0.004));}
+  else{orbT-=dx*0.006;orbP=Math.max(0.15,Math.min(1.45,orbP-dy*0.005));}});
+const up=e=>{pts.delete(e.pointerId);pinch0=0;};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+cv.addEventListener('wheel',e=>{if(mode!=='house')return;e.preventDefault();orbR=Math.min(30,Math.max(6,orbR*(1+e.deltaY*0.001)));},{passive:false});
+
+/* joystick + keys */
+const knob=document.getElementById('knob');let jx=0,jy=0,jid=null;
+joy.addEventListener('pointerdown',e=>{jid=e.pointerId;joy.setPointerCapture(jid);jmove(e);});
+joy.addEventListener('pointermove',e=>{if(e.pointerId===jid)jmove(e);});
+function jmove(e){const r=joy.getBoundingClientRect();let x=(e.clientX-r.left-r.width/2)/(r.width/2),y=(e.clientY-r.top-r.height/2)/(r.height/2);const l=Math.hypot(x,y);if(l>1){x/=l;y/=l;}jx=x;jy=y;knob.style.transform=`translate(${x*32}px,${y*32}px)`;}
+const jend=()=>{jid=null;jx=jy=0;knob.style.transform='';};joy.addEventListener('pointerup',jend);joy.addEventListener('pointercancel',jend);
+const keys={};
+addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea'))return;const k=e.key.toLowerCase();if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright'].includes(k)){keys[k]=true;if(stageVisible())e.preventDefault();}});
+addEventListener('keyup',e=>{keys[e.key.toLowerCase()]=false;});
+function stageVisible(){const r=stage.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight;}
+
+function blocked(x,z){const px=x/FT,py=z/FT+TOP,rad=0.75;
+  for(const c of colliders){if(px>c[0]-rad&&px<c[1]+rad&&py>c[2]-rad&&py<c[3]+rad)return true;}return false;}
+function whereAmI(){const px=pos.x/FT,py=pos.z/FT+TOP;for(const [r,b] of Object.entries(rooms)){if(px>=b[0]&&px<=b[1]&&py>=b[2]&&py<=b[3])return roomName[r];}return 'Entrance';}
+const whereEl=document.getElementById('where');let lastWhere='';
+
+function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+new ResizeObserver(resize).observe(stage);resize();
+
+let last=performance.now();
+function frame(t){const dt=Math.min(0.05,(t-last)/1000);last=t;
+  if(mode==='walk'){
+    let f=-jy,s=jx;if(keys.w||keys.arrowup)f+=1;if(keys.s||keys.arrowdown)f-=1;if(keys.d)s+=1;if(keys.a)s-=1;
+    if(keys.arrowleft)yaw+=1.8*dt;if(keys.arrowright)yaw-=1.8*dt;
+    if(f||s){const sp=1.4*dt,sn=Math.sin(yaw),cs=Math.cos(yaw);
+      const dx=(-sn*f+cs*s)*sp,dz=(-cs*f-sn*s)*sp;
+      const stuck=blocked(pos.x,pos.z);if(stuck||!blocked(pos.x+dx,pos.z))pos.x+=dx;if(stuck||!blocked(pos.x,pos.z+dz))pos.z+=dz;}
+    camera.position.copy(pos);camera.rotation.set(pitch,yaw,0,'YXZ');
+    const w=whereAmI();if(w!==lastWhere){whereEl.textContent=w;lastWhere=w;}
+  }else{
+    camera.position.set(orbC.x+orbR*Math.sin(orbP)*Math.sin(orbT),orbR*Math.cos(orbP),orbC.z+orbR*Math.sin(orbP)*Math.cos(orbT));camera.lookAt(orbC);
+    if(lastWhere!=='top'){whereEl.textContent='Whole flat';lastWhere='top';}
+  }
+  renderer.render(scene,camera);requestAnimationFrame(frame);}
+goTo(0);requestAnimationFrame(frame);
+})();
+</script>
+
+</body></html>
